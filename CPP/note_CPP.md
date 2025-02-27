@@ -298,3 +298,44 @@ call        fn
 
 但 `volatile` 对象和非 `volatile` 对象之间仍可能被重排序，且无法阻止 CPU 乱序  
 因而不应当将 `volatile` 用于多线程同步  
+## 类  
+### 成员函数  
+#### this 指针  
+`this` 指针为非静态成员函数的隐式形参，其指向调用该成员函数的对象  
+
+`this` 由编译器生成与传入，在 C++ 23 显式对象形参之前，其类型仅能为 [cv 类型修饰符](CPP/note_CPP.md#cv%20类型修饰符)修饰的 `T*` 指针类型，取决于该成员函数的 cv 修饰符  
+特别地，构造与析构函数不能被 cv 修饰符所修饰，它们的 `this` 指针固定为 `T*`  
+虽然类型中没有限定为 `const` 指针，但无法改变 `this` 指向的对象  
+
+通过对象调用非静态成员函数时，编译器会将该对象的地址作为隐藏的第一个参数传递给该函数  
+在允许 `this` 指针的语境下对非静态成员、非静态成员函数的访问，其名字前会被编译器添加 `this->`  
+
+> [!example]  
+考虑如下类  
+> ```cpp
+> clsss A{
+> public:
+> int m_var;
+> void Func(int a){m_var = a;}
+> }
+> 
+> A var{};
+> ```
+> 通过变量访问非静态成员函数，会被替换为类似如下形式  
+> ```cpp
+> A::Func(&var,1);
+> ```
+> `A::Func()` 内部的语句会被替换为类似如下形式  
+> ```cpp
+> this->m_var = a;
+> ```
+
+> [!warning]  
+> 由于如上特性，对一个不使用 this 指针的非静态成员函数，可以通过空指针访问  
+> ```cpp
+> class B{
+> public:int Func(){return 1;}
+> }
+> auto var = reinterpret_cast<B*>(nullptr);
+> var->Func();
+> ```
