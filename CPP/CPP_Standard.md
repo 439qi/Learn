@@ -55,7 +55,7 @@ tags:
 ## C++23
 
 - std::expected
-- [显式this](note_cpp.md/#显式-this-指针-deducing-this)
+- [**显式对象形参**(explicit object parameter)](CPP/note_CPP.md#显式对象形参)  
 - auto(x) decay copy
 - std::unreachable
 
