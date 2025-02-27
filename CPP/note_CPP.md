@@ -303,7 +303,7 @@ call        fn
 #### this 指针  
 `this` 指针为非静态成员函数的隐式形参，其指向调用该成员函数的对象  
 
-`this` 由编译器生成与传入，在 C++ 23 显式对象形参之前，其类型仅能为 [cv 类型修饰符](CPP/note_CPP.md#cv%20类型修饰符)修饰的 `T*` 指针类型，取决于该成员函数的 cv 修饰符  
+`this` 由编译器生成与传入，在 C++ 23 [显式对象形参](CPP/note_CPP.md#显式对象形参)之前，其类型仅能为 [cv 类型修饰符](CPP/note_CPP.md#cv%20类型修饰符)修饰的 `T*` 指针类型，取决于该成员函数的 cv 修饰符  
 特别地，构造与析构函数不能被 cv 修饰符所修饰，它们的 `this` 指针固定为 `T*`  
 虽然类型中没有限定为 `const` 指针，但无法改变 `this` 指向的对象  
 
@@ -374,4 +374,19 @@ public:
   `const volatile T&`  
 - 右值引用修饰  
   `const volatile T&&`  
-  
+
+##### 显式对象形参  
+> introduced in C++23  
+
+> [!cite]- References  
+> [C++23's Deducing this: what it is, why it is, how to use it - C++ Team Blog](https://devblogs.microsoft.com/cppblog/cpp23-deducing-this/)  
+
+```cpp
+class Cls{
+public:void Func(this const Cls& self);
+}
+```
+
+`this` 可以作为显式参数而非隐式参数，成员函数的第一个参数若为 this，则其将作为调用对象  
+
+`this` 不再必须为指针形式，也可通过引用或值传递  
