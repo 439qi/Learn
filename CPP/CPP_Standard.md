@@ -16,7 +16,7 @@ tags:
 - trailing return type  
 - std::atomic
 - [std::once_flag, std::call_once](note_cpp_thread.md/#stdonce_flag-stdcall_once)
-- [引用限定符](note_cpp.md/#引用限定符)
+- [引用修饰符](CPP/note_CPP.md#引用修饰符)  
 
 ## C++14
 
