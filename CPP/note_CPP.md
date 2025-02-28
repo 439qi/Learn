@@ -339,3 +339,39 @@ call        fn
 > auto var = reinterpret_cast<B*>(nullptr);
 > var->Func();
 > ```
+##### 引用修饰符  
+
+> introduced in C++11  
+
+> [!cite]- References  
+> [C++ 非静态成员函数的引用限定修饰 | M.P.O. Site](https://mysteriouspreserve.com/blog/2022/06/20/Cpp-Reference-Quality-Member-Function/)  
+
+> [!cite]- 历史遗留问题  
+> C++ 引入了运算符重载，但 C++11 之前运算符重载函数无法对 `this` 指针的[值种类](CPP/CPP_11/Value_Categories.md)进行约束  
+> 其导致了一些无意义表达式是合法的，无法对其进行约束，包括标准库  
+> ```cpp
+> std::string{"aaa"}+std::string{"bbb"} = std::string{"ccc"};
+> ```
+> C++11 引入了引用修饰符以解决以上问题，但没有对标准库中的类进行修订以避免 breaking change  
+> #TBD shallow const  
+
+引用修饰符用于非静态成员函数，以限制调用该成员函数的对象的值种类  
+其中无引用修饰与左值引用修饰或右值引用修饰无法共存  
+不会改变形参 `this` 指针的属性，`this` 指针始终为左值  
+
+```cpp
+class obj{
+public:
+  //void func();  //no ref-qualifier
+  void func()&; //lvalue ref-qualifier
+  void func()&&;  //rvalue ref_qualifier
+}
+```
+
+- 无引用修饰  
+  `const volatile T&` 且额外允许绑定到右值隐含对象实参  
+- 左值引用修饰  
+  `const volatile T&`  
+- 右值引用修饰  
+  `const volatile T&&`  
+  
