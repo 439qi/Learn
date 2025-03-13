@@ -58,7 +58,7 @@ tags:
 - [**显式对象形参**(explicit object parameter)](CPP/note_CPP.md#显式对象形参)  
 - auto(x) decay copy
 - std::unreachable
-
+- [std::inout_ptr, std::std::out_ptr](CPP/CPP_23/In_Out_ptr.md)
 ## C++26  
 - [static reflection](CPP_26/Static_Reflection.md)  
 ## Future
