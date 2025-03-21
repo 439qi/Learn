@@ -62,6 +62,7 @@ IP 协议([IPv4](Network/2_网络层/IPv4.md), [IPv6](Network/2_网络层/IPv6.m
 [基于 HTTP 的 IPP](note_IPP(NFY).md)  
 HTTPS  
 DNS  
+[mDNS](Network/4_应用层/mDNS.md)
 DHCP  
 FTP  
 Telnet  
